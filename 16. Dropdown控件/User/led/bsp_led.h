@@ -20,7 +20,7 @@
 
 #define LED4_PIN                  GPIO_Pin_8               
 #define LED4_GPIO_PORT            GPIOB    
-#define LED4_GPIO_CLK             RCC_AHB1Periph_GPIOB
+#define LED4_GPIO_CLK             RCC_AHB1Periph_GPIOG
 
 /************************************************************/
 

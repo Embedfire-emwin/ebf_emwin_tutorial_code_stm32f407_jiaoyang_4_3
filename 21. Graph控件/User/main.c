@@ -28,17 +28,16 @@
 #include "./led/bsp_led.h"
 #include "./usart/bsp_debug_usart.h"
 #include "./key/bsp_key.h"
-#include "./lcd/bsp_ili9806g_lcd.h"
-#include "./adc/bsp_adc.h"
+#include "./lcd/bsp_NT35510_lcd.h"
 //#include "./flash/bsp_spi_flash.h"
 #include "./TouchPad/bsp_touchpad.h"
 #include "./beep/bsp_beep.h" 
 #include "./sram/bsp_sram.h"	  
-#include "./touch/gt5xx.h"
+#include "./touch/gt9xx.h"
+#include "./adc/bsp_adc.h"
 /* STemWIN头文件 */
 #include "GUI.h"
 #include "DIALOG.h"
-
 
 
 /**************************** 任务句柄 ********************************/
@@ -138,23 +137,23 @@ static void AppTaskCreate(void)
 	if(NULL != ScreenShotSem_Handle)
 		printf("ScreenShotSem二值信号量创建成功！\r\n");
   
-//	xReturn = xTaskCreate((TaskFunction_t)LED_Task,/* 任务入口函数 */
-//											 (const char*    )"LED_Task",/* 任务名称 */
-//											 (uint16_t       )128,       /* 任务栈大小 */
-//											 (void*          )NULL,      /* 任务入口函数参数 */
-//											 (UBaseType_t    )4,         /* 任务的优先级 */
-//											 (TaskHandle_t   )&LED_Task_Handle);/* 任务控制块指针 */
-//	if(pdPASS == xReturn)
-//		printf("创建LED1_Task任务成功！\r\n");
-//  
-//  xReturn = xTaskCreate((TaskFunction_t)Touch_Task,/* 任务入口函数 */
-//											 (const char*      )"Touch_Task",/* 任务名称 */
-//											 (uint16_t         )256,     /* 任务栈大小 */
-//											 (void*            )NULL,    /* 任务入口函数参数 */
-//											 (UBaseType_t      )3,       /* 任务的优先级 */
-//											 (TaskHandle_t     )&Touch_Task_Handle);/* 任务控制块指针 */
-//	if(pdPASS == xReturn)
-//		printf("创建Touch_Task任务成功！\r\n");
+	xReturn = xTaskCreate((TaskFunction_t)LED_Task,/* 任务入口函数 */
+											 (const char*    )"LED_Task",/* 任务名称 */
+											 (uint16_t       )128,       /* 任务栈大小 */
+											 (void*          )NULL,      /* 任务入口函数参数 */
+											 (UBaseType_t    )4,         /* 任务的优先级 */
+											 (TaskHandle_t   )&LED_Task_Handle);/* 任务控制块指针 */
+	if(pdPASS == xReturn)
+		printf("创建LED1_Task任务成功！\r\n");
+  
+  xReturn = xTaskCreate((TaskFunction_t)Touch_Task,/* 任务入口函数 */
+											 (const char*      )"Touch_Task",/* 任务名称 */
+											 (uint16_t         )256,     /* 任务栈大小 */
+											 (void*            )NULL,    /* 任务入口函数参数 */
+											 (UBaseType_t      )3,       /* 任务的优先级 */
+											 (TaskHandle_t     )&Touch_Task_Handle);/* 任务控制块指针 */
+	if(pdPASS == xReturn)
+		printf("创建Touch_Task任务成功！\r\n");
 	
 	xReturn = xTaskCreate((TaskFunction_t)GUI_Task,/* 任务入口函数 */
 											 (const char*      )"GUI_Task",/* 任务名称 */
@@ -198,8 +197,8 @@ static void Touch_Task(void* parameter)
 								 portMAX_DELAY);/* 阻塞等待 */  
 	while(1)
 	{
-		GTP_TouchProcess();//触摸屏定时扫描
-		vTaskDelay(200);
+		GT9xx_GetOnePiont();//触摸屏定时扫描
+		vTaskDelay(20);
 	}
 }
 
@@ -219,7 +218,7 @@ static void GUI_Task(void* parameter)
   /* 给出信号量 */
   xSemaphoreGive(ScreenShotSem_Handle);
   /* 开LCD背光灯 */
-  ILI9806G_BackLed_Control ( ENABLE );
+  NT35510_BackLed_Control ( ENABLE );
 	while(1)
 	{
 		MainTask();
@@ -257,9 +256,9 @@ static void BSP_Init(void)
   
 	/* 串口初始化	*/
 	Debug_USART_Config();
-  /* ADC初始化 */
-	Rheostat_Init();
   
+	/* ADC */
+  Rheostat_Init();
 }
 
 

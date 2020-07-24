@@ -10,9 +10,9 @@
 #define BEEP_GPIO_CLK 	    RCC_AHB1Periph_GPIOG		/* GPIO端口时钟 */
 #define BEEP_GPIO_PIN		  	GPIO_Pin_7			        /* 连接到蜂鸣器的GPIO */
 
-/* 高电平时，蜂鸣器响 */
-#define ON  1
-#define OFF 0
+///* 高电平时，蜂鸣器响 */
+//#define ON  1
+//#define OFF 0
 
 /* 带参宏，可以像内联函数一样使用 */
 #define BEEP(a)	if (a)	\

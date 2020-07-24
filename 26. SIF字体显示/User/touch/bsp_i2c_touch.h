@@ -16,7 +16,7 @@
 #define GTP_I2C_SCL_SOURCE               GPIO_PinSource4
 
 #define GTP_I2C_SDA_PIN                  GPIO_Pin_5                 
-#define GTP_I2C_SDA_GPIO_PORT            GPIOH                
+#define GTP_I2C_SDA_GPIO_PORT            GPIOH                  
 #define GTP_I2C_SDA_GPIO_CLK             RCC_AHB1Periph_GPIOH
 #define GTP_I2C_SDA_SOURCE               GPIO_PinSource5
 

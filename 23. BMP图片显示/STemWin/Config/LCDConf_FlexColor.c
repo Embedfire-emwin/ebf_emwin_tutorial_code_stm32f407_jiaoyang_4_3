@@ -48,7 +48,7 @@ Purpose     : Display controller configuration (single layer)
 
 #include "GUI.h"
 #include "GUIDRV_FlexColor.h"
-#include "./lcd/bsp_ili9806g_lcd.h"
+#include "./lcd/bsp_nt35510_lcd.h"
 /*********************************************************************
 *
 *       Layer configuration (to be modified)
@@ -59,8 +59,8 @@ Purpose     : Display controller configuration (single layer)
 //
 // Physical display size
 //
-#define XSIZE_PHYS  ILI9806G_LESS_PIXEL // To be adapted to x-screen size
-#define YSIZE_PHYS  ILI9806G_MORE_PIXEL // To be adapted to y-screen size
+#define XSIZE_PHYS  nt35510_LESS_PIXEL // To be adapted to x-screen size
+#define YSIZE_PHYS  nt35510_MORE_PIXEL // To be adapted to y-screen size
 
 
 /*********************************************************************
@@ -103,7 +103,7 @@ Purpose     : Display controller configuration (single layer)
 */
 static void LcdWriteReg(U16 Data) {
   // ... TBD by user
-  * ( __IO uint16_t * ) ( FSMC_Addr_ILI9806G_CMD ) = Data;								//modify by fire
+  * ( __IO uint16_t * ) ( FSMC_Addr_NT35510_CMD ) = Data;								//modify by fire
 }
 
 /********************************************************************
@@ -115,7 +115,7 @@ static void LcdWriteReg(U16 Data) {
 */
 static void LcdWriteData(U16 Data) {
   // ... TBD by user
-  * ( __IO uint16_t * ) ( FSMC_Addr_ILI9806G_DATA ) = Data;//modify by fire
+  * ( __IO uint16_t * ) ( FSMC_Addr_NT35510_DATA ) = Data;//modify by fire
 }
 
 /********************************************************************
@@ -128,7 +128,7 @@ static void LcdWriteData(U16 Data) {
 static void LcdWriteDataMultiple(U16 * pData, int NumItems) {
   while (NumItems--) {
     // ... TBD by user
-    * ( __IO uint16_t * ) ( FSMC_Addr_ILI9806G_DATA ) = *pData++;//modify by fire
+    * ( __IO uint16_t * ) ( FSMC_Addr_NT35510_DATA ) = *pData++;//modify by fire
   }
 }
 
@@ -141,10 +141,10 @@ static void LcdWriteDataMultiple(U16 * pData, int NumItems) {
 */
 static void LcdReadDataMultiple(U16 * pData, int NumItems) {
   //ili9806读取的第一个数据为无效数据，舍弃(原来没有使用config.numdummyreads参数的时候需要这个语句)
-	//*pData = * ( __IO uint16_t * ) ( FSMC_Addr_ILI9806G_DATA );	
+	//*pData = * ( __IO uint16_t * ) ( FSMC_Addr_nt35510_DATA );	
   while (NumItems--) {
     // ... TBD by user
-		*pData++ = * ( __IO uint16_t * ) ( FSMC_Addr_ILI9806G_DATA );//modify by fire
+		*pData++ = * ( __IO uint16_t * ) ( FSMC_Addr_NT35510_DATA );//modify by fire
   }
 }
 
@@ -235,7 +235,7 @@ int LCD_X_DisplayDriver(unsigned LayerIndex, unsigned Cmd, void * pData) {
     // to be adapted by the customer...
     //
     // ...
-    ILI9806G_Init();//modify by fire
+    NT35510_Init();//modify by fire
     
     return 0;
   }

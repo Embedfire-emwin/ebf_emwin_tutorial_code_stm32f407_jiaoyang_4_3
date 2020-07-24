@@ -28,16 +28,15 @@
 #include "./led/bsp_led.h"
 #include "./usart/bsp_debug_usart.h"
 #include "./key/bsp_key.h"
-#include "./lcd/bsp_ili9806g_lcd.h"
+#include "./lcd/bsp_NT35510_lcd.h"
 //#include "./flash/bsp_spi_flash.h"
 #include "./TouchPad/bsp_touchpad.h"
 #include "./beep/bsp_beep.h" 
 #include "./sram/bsp_sram.h"	  
-#include "./touch/gt5xx.h"
+#include "./touch/gt9xx.h"
 /* STemWIN头文件 */
 #include "GUI.h"
 #include "DIALOG.h"
-
 
 
 /**************************** 任务句柄 ********************************/
@@ -150,7 +149,7 @@ static void AppTaskCreate(void)
 											 (const char*      )"Touch_Task",/* 任务名称 */
 											 (uint16_t         )256,     /* 任务栈大小 */
 											 (void*            )NULL,    /* 任务入口函数参数 */
-											 (UBaseType_t      )2,       /* 任务的优先级 */
+											 (UBaseType_t      )3,       /* 任务的优先级 */
 											 (TaskHandle_t     )&Touch_Task_Handle);/* 任务控制块指针 */
 	if(pdPASS == xReturn)
 		printf("创建Touch_Task任务成功！\r\n");
@@ -159,7 +158,7 @@ static void AppTaskCreate(void)
 											 (const char*      )"GUI_Task",/* 任务名称 */
 											 (uint16_t         )1024,      /* 任务栈大小 */
 											 (void*            )NULL,      /* 任务入口函数参数 */
-											 (UBaseType_t      )3,         /* 任务的优先级 */
+											 (UBaseType_t      )2,         /* 任务的优先级 */
 											 (TaskHandle_t     )&GUI_Task_Handle);/* 任务控制块指针 */
 	if(pdPASS == xReturn)
 		printf("创建GUI_Task任务成功！\r\n");
@@ -197,9 +196,8 @@ static void Touch_Task(void* parameter)
 								 portMAX_DELAY);/* 阻塞等待 */  
 	while(1)
 	{
-		GTP_TouchProcess();//触摸屏定时扫描
-		vTaskDelay(50);
-
+		GT9xx_GetOnePiont();//触摸屏定时扫描
+		vTaskDelay(20);
 	}
 }
 
@@ -219,7 +217,7 @@ static void GUI_Task(void* parameter)
   /* 给出信号量 */
   xSemaphoreGive(ScreenShotSem_Handle);
   /* 开LCD背光灯 */
-  ILI9806G_BackLed_Control ( ENABLE );
+  NT35510_BackLed_Control ( ENABLE );
 	while(1)
 	{
 		MainTask();

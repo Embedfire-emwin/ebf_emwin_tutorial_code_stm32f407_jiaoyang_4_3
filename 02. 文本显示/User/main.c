@@ -28,11 +28,12 @@
 #include "./led/bsp_led.h"
 #include "./usart/bsp_debug_usart.h"
 #include "./key/bsp_key.h"
-#include "./lcd/bsp_ili9806g_lcd.h"
+#include "./lcd/bsp_NT35510_lcd.h"
 //#include "./flash/bsp_spi_flash.h"
 #include "./TouchPad/bsp_touchpad.h"
+#include "./beep/bsp_beep.h" 
 #include "./sram/bsp_sram.h"	  
-#include "./touch/gt5xx.h"
+#include "./touch/gt9xx.h"
 /* STemWIN头文件 */
 #include "GUI.h"
 #include "DIALOG.h"
@@ -196,7 +197,7 @@ static void Touch_Task(void* parameter)
 								 portMAX_DELAY);/* 阻塞等待 */  
 	while(1)
 	{
-		GTP_TouchProcess();//触摸屏定时扫描
+		GT9xx_GetOnePiont();//触摸屏定时扫描
 		vTaskDelay(20);
 	}
 }
@@ -217,7 +218,7 @@ static void GUI_Task(void* parameter)
   /* 给出信号量 */
   xSemaphoreGive(ScreenShotSem_Handle);
   /* 开LCD背光灯 */
-  ILI9806G_BackLed_Control ( ENABLE );
+  NT35510_BackLed_Control ( ENABLE );
 	while(1)
 	{
 		MainTask();
@@ -249,6 +250,9 @@ static void BSP_Init(void)
 	
 	/* LED 初始化 */
 	LED_GPIO_Config();
+
+  /* 蜂鸣器初始化 */
+  BEEP_GPIO_Config();
   
 	/* 串口初始化	*/
 	Debug_USART_Config();

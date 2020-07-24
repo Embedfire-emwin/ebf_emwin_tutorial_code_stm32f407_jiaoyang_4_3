@@ -782,19 +782,9 @@
               <FilePath>..\..\User\key\bsp_key.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_ili9806g_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\lcd\bsp_ili9806g_lcd.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_i2c_touch.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\touch\bsp_i2c_touch.c</FilePath>
-            </File>
-            <File>
-              <FileName>gt5xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\touch\gt5xx.c</FilePath>
             </File>
             <File>
               <FileName>bsp_debug_usart.c</FileName>
@@ -815,6 +805,16 @@
               <FileName>bsp_sdio_sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\sdio\bsp_sdio_sd.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_nt35510_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\lcd\bsp_nt35510_lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>gt9xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\touch\gt9xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -882,11 +882,6 @@
               <FilePath>..\..\STemWin\Config\GUIConf.h</FilePath>
             </File>
             <File>
-              <FileName>LCDConf_FlexColor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\STemWin\Config\LCDConf_FlexColor.c</FilePath>
-            </File>
-            <File>
               <FileName>GUI_X_FreeRTOS.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\STemWin\OS\GUI_X_FreeRTOS.c</FilePath>
@@ -895,6 +890,11 @@
               <FileName>STemWin_CM4_OS_wc16_ot_ARGB.a</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\STemWin\Lib\STemWin_CM4_OS_wc16_ot_ARGB.a</FilePath>
+            </File>
+            <File>
+              <FileName>GUIDRV_Template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\STemWin\Config\GUIDRV_Template.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -29,7 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
-
+#include "./touch/bsp_i2c_touch.h"
 #include "FreeRTOS.h"					//FreeRTOS使用		  
 #include "task.h" 
 
@@ -144,7 +144,15 @@ void SysTick_Handler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_stm32f429_439xx.s).                         */
 /******************************************************************************/
-
+extern void GTP_TouchProcess(void);
+void GTP_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(GTP_INT_EXTI_LINE) != RESET) //确保是否产生了EXTI Line中断
+	{
+    GTP_TouchProcess();    
+		EXTI_ClearITPendingBit(GTP_INT_EXTI_LINE);     //清除中断标志位
+	}  
+}
 /**
   * @}
   */ 

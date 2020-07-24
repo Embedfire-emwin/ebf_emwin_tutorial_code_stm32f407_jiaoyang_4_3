@@ -48,8 +48,8 @@ extern __IO uint16_t ADC_ConvertedValue;
 *       _aDialogCreate
 */
 static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
-  { FRAMEWIN_CreateIndirect, "Framewin", ID_FRAMEWIN_0, 0, 0, 480, 854, 0, 0x0, 0 },
-  { GRAPH_CreateIndirect, "Graph", ID_GRAPH_0, 20, 10, 430, 800, 0, 0x0, 0 },
+  { FRAMEWIN_CreateIndirect, "Framewin", ID_FRAMEWIN_0, 0, 0, 480, 800, 0, 0x0, 0 },
+  { GRAPH_CreateIndirect, "Graph", ID_GRAPH_0, 20, 10, 430, 750, 0, 0x0, 0 },
 };
 
 /*********************************************************************
