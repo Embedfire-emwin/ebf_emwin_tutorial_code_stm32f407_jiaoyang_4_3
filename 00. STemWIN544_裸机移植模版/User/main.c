@@ -19,9 +19,9 @@
 #include "./usart/bsp_debug_usart.h"
 #include "./led/bsp_led.h"  
 #include "./sram/bsp_sram.h"	  
-#include "./lcd/bsp_ili9806g_lcd.h"
+#include "./lcd/bsp_nt35510_lcd.h"
 #include "./systick/bsp_SysTick.h"
-#include "./touch/gt5xx.h"
+#include "./touch/gt9xx.h"
 
 #include "GUI.h"
 

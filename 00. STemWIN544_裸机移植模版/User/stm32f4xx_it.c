@@ -29,9 +29,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
-
+#include "./touch/bsp_i2c_touch.h"
 extern void TimingDelay_Decrement(void);
 extern void GTP_TouchProcess(void);
+extern void GT9xx_GetOnePiont(void);
 
 //GUI使用的计时
 extern __IO int32_t OS_TimeMS;
@@ -153,6 +154,15 @@ void SysTick_Handler(void)
 /*  file (startup_stm32f429_439xx.s).                         */
 /******************************************************************************/
 
+void GTP_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(GTP_INT_EXTI_LINE) != RESET) //确保是否产生了EXTI Line中断
+	{
+    GTP_TouchProcess();    
+		GT9xx_GetOnePiont();
+		EXTI_ClearITPendingBit(GTP_INT_EXTI_LINE);     //清除中断标志位
+	}  
+}
 /**
   * @}
   */ 
